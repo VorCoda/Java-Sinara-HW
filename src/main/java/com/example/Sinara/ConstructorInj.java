@@ -1,0 +1,20 @@
+package com.example.Sinara;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class ConstructorInj {
+
+    private final DInjExmp dInjExmp;
+
+    @Autowired
+    public ConstructorInj(@Qualifier("A") DInjExmp dInjExmp){
+        this.dInjExmp = dInjExmp;
+    }
+
+    public void print(){
+        dInjExmp.exmpPrint();
+    }
+}
