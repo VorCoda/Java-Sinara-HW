@@ -1,4 +1,4 @@
-package com.example.Sinara;
+package com.example.Sinara.DepInjection;
 
 import org.springframework.stereotype.Component;
 

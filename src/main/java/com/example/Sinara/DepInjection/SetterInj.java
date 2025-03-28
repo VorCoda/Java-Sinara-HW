@@ -1,16 +1,16 @@
-package com.example.Sinara;
+package com.example.Sinara.DepInjection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-
 @Component
-public class ConstructorInj {
+public class SetterInj {
 
-    private final DInjExmp dInjExmp;
+    private DInjExmp dInjExmp;
 
     @Autowired
-    public ConstructorInj(@Qualifier("A") DInjExmp dInjExmp){
+    public void setdInjExmp(@Qualifier("A") DInjExmp dInjExmp){
         this.dInjExmp = dInjExmp;
     }
 
