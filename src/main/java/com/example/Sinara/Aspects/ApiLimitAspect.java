@@ -21,7 +21,7 @@ public class ApiLimitAspect {
     @Autowired
     private RequestCounter requestCounter;
 
-    @Pointcut("execution(* com.example.Sinara..*(..)) && !within(com.example.Sinara.RequestController)")
+    @Pointcut("execution(* com.example.Sinara.Aspects.ApiController.*(..)))")
     public void apiMethods() {}
 
     @Around("apiMethods()")
@@ -37,7 +37,7 @@ public class ApiLimitAspect {
         // Сравниваем с заданным лимитом в конфигурации
         if (currentCount >= apiConfig.getMaxRequests()) {
             log.info ("Limit exceeded for method: ", methodName);
-            throw new RuntimeException("Фигня");
+            return null;
         }
 
 
