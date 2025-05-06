@@ -23,7 +23,7 @@ public class AppConfig {
     }
 
     @Bean
-    @ConditionalOnExpression("'${EXAMPLE_TEST}' != 'default'")
+    @ConditionalOnExpression("'${EXAMPLE_TEST:default}' != 'default'")
     public ThirdBean thirdBean() {
         return new ThirdBean();
     }
