@@ -3,10 +3,13 @@ package com.example.Sinara.DataBase;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 //Создадим сущность для БД
 @Entity
 public class TaskList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +17,27 @@ public class TaskList {
     private  String name;
 
     @ElementCollection
-    private List<String> events;
+    @CollectionTable(name = "task_events")
+    private Set<String> events;
+
+
+    // Переопределение equals и hashCode
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj){
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        TaskList taskList = (TaskList) obj;
+        return Objects.equals(id, taskList.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     // Геттер для поля id
     public Long getId() {

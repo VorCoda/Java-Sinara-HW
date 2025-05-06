@@ -7,33 +7,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
+
 public class TaskController {
 
-    private final TaskListRepository taskListRepository;
+    private final TaskService taskService;
 
-    public TaskController(TaskListRepository taskListRepository){
-        this.taskListRepository = taskListRepository;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     //Обработка POST запроса
     @PostMapping
-    public ResponseEntity<String> createTaskList(@RequestBody TaskListDTO  taskListDTO){ //сразу преобразуем JSON в объекты TaskListDTO
-        TaskList taskList = new TaskList();
-        taskList.setName(taskListDTO.getName());
-        taskList.setEvents(taskListDTO.getEvents());
-        taskListRepository.save(taskList);
-
-        return ResponseEntity.ok("TaskList is created");
+    public Status createTaskList(@RequestBody TaskListDTO taskListDTO) {
+        taskService.createTaskList(taskListDTO);
+        return new Status("data processed");
     }
 
     //Обработка GET запроса
     @GetMapping
-    public ResponseEntity<List<TaskListDTO>> getAllTasks(){
-        List<TaskList> taskLists = taskListRepository.findAll();
-        List<TaskListDTO> taskListDTOs = taskLists.stream()
+    public List<TaskListDTO> getAllTasks() {
+        List<TaskList> taskLists = taskService.getAllTasks();
+        List<TaskListDTO> dtos = taskLists.stream()
                 .map(this::convertToDTO)
                 .toList();
-        return ResponseEntity.ok(taskListDTOs);
+        return dtos;
     }
 
     //Метод для перевода листа сущностей TaskList в лист отображения для пользователей
