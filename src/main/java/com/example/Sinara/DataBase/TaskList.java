@@ -61,11 +61,11 @@ public class TaskList {
 
     // Геттер для поля events
     public List<String> getEvents() {
-        return events;
+        return (List<String>) events;
     }
 
     // Сеттер для поля events
-    public void setEvents(List<String> events) {
+    public void setEvents(Set<String> events) {
         this.events = events;
     }
 

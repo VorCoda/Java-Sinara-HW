@@ -1,5 +1,6 @@
 package com.example.Sinara.DataBase;
 
+
 public class Status {
 
     private String status;

@@ -1,6 +1,8 @@
 package com.example.Sinara.DataBase;
 
 import java.util.List;
+import java.util.Set;
+
 //DataTransferObject
 public class TaskListDTO {
     private String name;
@@ -10,8 +12,8 @@ public class TaskListDTO {
         return name;
     }
 
-    public List<String> getEvents(){
-        return events;
+    public Set<String> getEvents(){
+        return (Set<String>) events;
     }
 
     public void setName(String name){

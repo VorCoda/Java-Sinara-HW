@@ -1,5 +1,6 @@
 package com.example.Sinara.DataBase;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,14 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @Autowired
+    private TaskListDTOMapper taskListDTOMapper;
+
     //Обработка POST запроса
     @PostMapping
     public Status createTaskList(@RequestBody TaskListDTO taskListDTO) {
-        taskService.createTaskList(taskListDTO);
+        TaskList taskList = taskListDTOMapper.convertFromDTO(taskListDTO);
+        taskService.createTaskList(taskList);
         return new Status("data processed");
     }
 
@@ -28,16 +33,10 @@ public class TaskController {
     public List<TaskListDTO> getAllTasks() {
         List<TaskList> taskLists = taskService.getAllTasks();
         List<TaskListDTO> dtos = taskLists.stream()
-                .map(this::convertToDTO)
+                .map(taskListDTOMapper::convertToDTO)
                 .toList();
         return dtos;
     }
 
-    //Метод для перевода листа сущностей TaskList в лист отображения для пользователей
-    private TaskListDTO convertToDTO(TaskList taskList) {
-        TaskListDTO dto = new TaskListDTO();
-        dto.setName(taskList.getName());
-        dto.setEvents(taskList.getEvents());
-        return dto;
-    }
+
 }

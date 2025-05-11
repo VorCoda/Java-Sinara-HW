@@ -16,10 +16,7 @@ public class TaskService {
     }
 
     // Метод для создания задач
-    public TaskList createTaskList(TaskListDTO taskListDTO) {
-        TaskList taskList = new TaskList();
-        taskList.setName(taskListDTO.getName());
-        taskList.setEvents(taskListDTO.getEvents());
+    public TaskList createTaskList(TaskList taskList) {
         return taskListRepository.save(taskList);
     }
 
