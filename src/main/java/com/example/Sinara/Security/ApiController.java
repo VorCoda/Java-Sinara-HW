@@ -8,21 +8,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiController {
     @GetMapping("/public/api")
-    public String publicApi() {
-        return "This is a public API";
+    public StatusDto publicApi() {
+        return new StatusDto("Welcome");
     }
 
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed("ADMIN")
     @GetMapping("/admin/api")
-    public String adminApi(Authentication authentication) {
-        return "Admin: " + authentication.getName() +
-                ", Role: " + authentication.getAuthorities();
+    public UserDto adminApi(Authentication authentication) {
+        return new UserDto(authentication.getName(), authentication.getAuthorities().toString());
     }
 
-    @RolesAllowed("ROLE_SUPPORT")
+    @RolesAllowed("SUPPORT")
     @GetMapping("/support/api")
-    public String supportApi(Authentication authentication) {
-        return "Support: " + authentication.getName() +
-                ", Role: " + authentication.getAuthorities();
+    public UserDto supportApi(Authentication authentication) {
+        return new UserDto(authentication.getName(), authentication.getAuthorities().toString());
     }
 }
