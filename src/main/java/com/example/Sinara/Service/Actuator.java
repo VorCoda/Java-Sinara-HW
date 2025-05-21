@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@Endpoint(id = "actuator")
+@Endpoint(id = "logpoint")
 public class Actuator {
     private final Logger logger = LoggerFactory.getLogger(Actuator.class);
 

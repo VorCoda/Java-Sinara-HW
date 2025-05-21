@@ -2,10 +2,10 @@ package com.example.Sinara.Service;
 
 public class BuyChocolateDTO {
     private ChocolateType type;
-    private int count;
+    private long count;
 
 
-    public BuyChocolateDTO(ChocolateType type, Integer count){
+    public BuyChocolateDTO(ChocolateType type, Long count){
         this.type = type;
         this.count = count;
     }
@@ -17,11 +17,11 @@ public class BuyChocolateDTO {
         this.type = type;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 }

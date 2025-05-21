@@ -1,5 +1,7 @@
 package com.example.Sinara.Service;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -10,20 +12,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class ChocolateBuyingService {
-    private final Map<ChocolateType, AtomicInteger> chocolateCounters = new EnumMap<>(ChocolateType.class);
+    private final MeterRegistry registry;
 
-    public ChocolateBuyingService() {
-        Arrays.stream(ChocolateType.values()).forEach(type -> chocolateCounters.put(type, new AtomicInteger(0)));
+    public ChocolateBuyingService(MeterRegistry registry) {
+        this.registry = registry;
     }
 
-    //Записываем тип шоколадки
+
+    //Записываем сколько купили шоколадок определенного типа
     public void recordPurchase(ChocolateType type) {
-        chocolateCounters.get(type).incrementAndGet();
+         registry.counter("custom.requests.choco.count", Tags.of("type", type.name())).increment();
     }
 
-    //Записываем кол-во покупок шоколадки определенного типа
-    public Map<ChocolateType, Integer> getPurchaseCounts() {
-        return chocolateCounters.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().get()));
-    }
 }
