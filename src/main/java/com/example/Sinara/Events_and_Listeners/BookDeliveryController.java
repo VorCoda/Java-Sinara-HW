@@ -27,7 +27,7 @@ public class BookDeliveryController {
 
     // Публикация транзакционного события
     // Транзакция будет отменена(rollback), если dto.EditionNumber будет <= 0
-    @PostMapping("/transactional/success")
+    @PostMapping("/transactional")
     public StatusDto publishSuccessfulTransactionalEvent(@RequestBody BookDeliveryDto dto) {
         bookDeliveryService.publishTransactionalEvent(dto.getBookTitle(), dto.getEditionNumber(), dto.getCount());
         return new StatusDto("transaction-ok");
